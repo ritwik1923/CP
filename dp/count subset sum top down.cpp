@@ -96,9 +96,9 @@ void knapsack(int wt[],int w,int n) {
 
 int main() {
     int n,w;
-    n = 3;
-    w = 20;
-    int wt[] = {3,5,10};
+    n = 8;
+    w = 384;
+    int wt[] = {174 ,249, 15 ,96 ,163 ,10 ,111 ,100};
     knapsack(wt, w,n);
     //cout<<knapsack(wt, w,n);
     return 0;

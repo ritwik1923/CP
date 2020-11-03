@@ -48,9 +48,9 @@ void knapsack(int wt[],int val[],int w,int n) {
 
             if(wt[i - 1] <= j) {
                     ///1/0
-                //if(dp[i-1][j - wt[i - 1]] || dp[i-1][j]) dp[i][j] = 1;
+                if(dp[i-1][j - wt[i - 1]] || dp[i-1][j]) dp[i][j] = 1;
                     ///unbounded
-                if(dp[i][j - wt[i - 1]] || dp[i-1][j]) dp[i][j] = 1;
+                //if(dp[i][j - wt[i - 1]] || dp[i-1][j]) dp[i][j] = 1;
             }
             else if(wt[i - 1] > j) dp[i][j] = dp[i-1][j];
 
@@ -65,9 +65,9 @@ void knapsack(int wt[],int val[],int w,int n) {
 }
 int main() {
     int n,w;
-    n = 3;
-    w = 99;
-    int wt[] = {9,2,4};
+    n = 8;
+    w = 384;
+    int wt[] = {174 ,249, 15 ,96 ,163 ,10 ,111 ,100};
     int val[] = {1,1,1,1};
     knapsack(wt,val,w,n);
     cout<<"\n------\n"<<dp[n][w]<<"\n------\n";

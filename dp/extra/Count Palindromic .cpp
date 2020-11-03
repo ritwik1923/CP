@@ -32,18 +32,45 @@ typedef vector<vi>		vvi;
 typedef vector<vl>		vvl;
 #define Max 1000
 
+int dp[Max+1][Max+1];
 
+int CPS(string s,int i,int j) {
+    if(i>j) return 0;
+    if(dp[i][j] != -1) return dp[i][j];
+    if(s[i] == s[j]) {
+        //extreme end r same
+        return dp[i][j] = 1 + CPS(s,i, j - 1) + CPS(s,i + 1,j);
+    }
+    if(s[i] != s[j]) {
+        //extreme end r not same
+        return dp[i][j] = CPS(s,i, j - 1) + CPS(s,i + 1,j) - CPS(s,i + 1, j - 1);
+    }
+}
 
 
 int main() {
     int n,w;
     n = 3;
     w = 10;
-    string x = "aab";
-    string y = x;
-    // reverse(y.begin(),y.end());
-    LCS(x,0,x.size()-1);
-    //cout<<knapsack(wt,val,w,n);
+    string x = "BBABCBCAB";
+
+    rep(i,0,x.size()) {
+        rep(j,0,x.size()) {
+            dp[i][j] = -1;
+        }
+    }
+
+    cout<<CPS(x,0,x.size()-1)<<"\n";
+
+    for(int i = 0;i < x.size()+1;i++) {
+        for(int j =  0; j <= x.size() ;j++) {
+            if(dp[i][j]!=-1)
+                cout<<dp[i][j]<<" ";
+            else
+                cout<<"_ ";
+        }
+        cout<<"\n";
+    }
     return 0;
 }
 
