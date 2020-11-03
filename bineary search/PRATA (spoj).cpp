@@ -37,15 +37,9 @@ const ll mod = 0x3b9aca07;
 ll t, n = 8, c = 3;
 ll a[me];//= {174 ,249, 15 ,96 ,163 ,10 ,111 ,100};
 // ll a[me] = {10,20,30,40};
-int main() {
-    cin.tie(0);
-    cin >> t;
-    while(t --){
-        cin >> n;
-        for(ll i = 0; i < n; i ++)
-            cin >> a[i];
-        cin>>c;
-        ll  high , mid, best ;
+
+int parata(int p,int r,int a[]) {
+    ll  high , mid, best ;
         high=accumulate(a,a+n,0);
         ll low = 0;
         // ll sum[n],s=0;
@@ -53,15 +47,15 @@ int main() {
             low = max(low,a[i]);
         }
 
-        if(n<c) cout<<"-1\n"; else {
+        if(n<p) cout<<"-1\n"; else {
         best=-1;
-        if(c==1) cout<<high<<"\n";
+        if(p==1) cout<<high<<"\n";
         else {
         while(low <= high){
             mid = (low + (high - low) / 2);
             // best=-1;
             ll sumupto = 0,student = 0,max_best=LONG_MAX;
-            for(int i = 0; i < n && student <= c;i++){
+            for(int i = 0; i < n && student <= p;i++){
                 sumupto+=a[i];
 
                 if(sumupto >= mid) {
@@ -72,7 +66,7 @@ int main() {
                 }
             }
             cout<<"\n";
-            if(student >= c) {
+            if(student >= p) {
                 cout<<"*";
                 best = mid;
                 low = mid + 1;
@@ -89,7 +83,19 @@ int main() {
         cout << best << endl;
     }
     }
-    }
+
+}
+
+
+int main() {
+    cin.tie(0);
+    cin >> t;
+    while(t --){
+        cin >> n;
+        for(ll i = 0; i < n; i ++)
+            cin >> a[i];
+        cin>>c;
+            }
 
     return 0;
 }
