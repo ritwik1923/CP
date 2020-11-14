@@ -18,7 +18,6 @@ using namespace std;
 #define F first
 #define S second
 #define all(x) x.begin(), x.end()
-#define clr(x) memset(x, 0, sizeof(x))
 #define sortall(x) sort(all(x))
 #define tr(it, a) for(auto it = a.begin(); it != a.end(); it++)
 #define PI 3.1415926535897932384626
@@ -26,6 +25,7 @@ typedef pair<int, int>	pii;
 typedef pair<ll, ll>	pl;
 typedef vector<int>		vi;
 typedef vector<ll>		vl;
+
 typedef vector<pii>		vpii;
 typedef vector<pl>		vpl;
 typedef vector<vi>		vvi;
@@ -34,69 +34,82 @@ const ll me = 100025;
 const ll mod = 0x3b9aca07;
 
 
-ll t, n = 8, c = 3;
-ll a[me];//= {174 ,249, 15 ,96 ,163 ,10 ,111 ,100};
-// ll a[me] = {10,20,30,40};
+ll maxvalue_with_min(ll a[],ll r,ll p) {
+    ll low = LONG_MAX;
+    rep(i,0,r) low = min(low,a[i]);
 
-int parata(int p,int r,int a[]) {
-    ll  high , mid, best ;
-        high=accumulate(a,a+n,0);
+    ll res = 0;
+    rep(i,1,p+1) res = res + i*low;
+    //deb(res);
+    return res;
+}
+
+ll parata(ll p,ll r,ll a[]) {
+    ll  high , mid, best;
+    /// high value cant be more than work done by min value person
+        high = maxvalue_with_min(a,r,p);
+        ///generic (need to be optimum)
         ll low = 0;
-        // ll sum[n],s=0;
-        rep(i,0,n) {
-            low = max(low,a[i]);
-        }
 
-        if(n<p) cout<<"-1\n"; else {
-        best=-1;
-        if(p==1) cout<<high<<"\n";
-        else {
         while(low <= high){
             mid = (low + (high - low) / 2);
-            // best=-1;
-            ll sumupto = 0,student = 0,max_best=LONG_MAX;
-            for(int i = 0; i < n && student <= p;i++){
-                sumupto+=a[i];
+            ll parata_upto = 0;
+           // deb(mid);
 
-                if(sumupto >= mid) {
-                    cout<<sumupto-a[i]<<" ";
-                    student ++;
-                    max_best = min(max_best,sumupto-a[i]);
-                    sumupto = a[i];
+            rep(i,0,r) {
+                ll s = 0;
+                //deb(i) , deb(a[i]);
+                for(ll j = 1;parata_upto <= p && s <= mid; j++){
+                    parata_upto++;
+                    s = s + j*a[i];
+                    //cout<<s<<" * "<<j*a[i]<<" - ";
                 }
+                parata_upto = parata_upto - 1;
+                //deb(parata_upto);
+                 //   cout<<s<<", ";
+                //if(parata_upto >= p) break;
             }
-            cout<<"\n";
-            if(student >= p) {
-                cout<<"*";
-                best = mid;
+           // deb(parata_upto);
+            if(parata_upto < p) {
                 low = mid + 1;
             }
-            else
-            {
-
+            else if(parata_upto >= p) {
+                best = mid;
                 high = mid - 1;
+                //cout<<"*";
             }
-           deb(student) , deb(low) , deb(high) ,  deb2(mid,best);
-
-
+            //cout<<"\n";
             }
-        cout << best << endl;
-    }
-    }
+
+    return best;
 
 }
 
 
 int main() {
-    cin.tie(0);
+    int t;
     cin >> t;
     while(t --){
+    ll n = 8, c = 3;
+
         cin >> n;
-        for(ll i = 0; i < n; i ++)
-            cin >> a[i];
         cin>>c;
-            }
+        ll a[c];
+        for(ll i = 0; i < c; i ++)
+            cin >> a[i];
+
+    cout<<parata(n,c,a)<<"\n";
+    }
 
     return 0;
 }
 
+// int main() {
+//     // ll p = 10;
+//     // ll a[] = {1,2,3,4};
+//     // ll n = 4;
+//     ll p = 8;
+//     ll a[] = {1};
+//     ll n = 1;
+//     cout<<"\n--------\n"<<parata(p,n,a)<<"\n--------\n";
+// }

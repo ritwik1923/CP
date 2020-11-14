@@ -1,4 +1,7 @@
 #include<bits/stdc++.h>
+// #include <boost/multiprecision/cpp_int.hpp>
+// //https://www.boost.org/doc/libs/1_66_0/libs/multiprecision/doc/html/index.html
+// using boost::multiprecision::cpp_int;
 using namespace std;
 #define gc getchar_unlocked
 #define rep(i,a,b) for(ll i=a;i<b;i++)
@@ -8,6 +11,7 @@ using namespace std;
 #define si(x)	scanf("%d",&x)
 #define sl(x)	scanf("%lld",&x)
 #define ss(s)	scanf("%s",s)
+#define sline(x)	getline(cin,x);
 #define pi(x)	printf("%d\n",x)
 #define pl(x)	printf("%lld\n",x)
 #define ps(s)	printf("%s\n",s)
@@ -22,6 +26,7 @@ using namespace std;
 #define sortall(x) sort(all(x))
 #define tr(it, a) for(auto it = a.begin(); it != a.end(); it++)
 #define PI 3.1415926535897932384626
+//#define near_one (a[i+1][j]==0&&a[i][j+1]==0&&(a[i-1][j]==0&&i-1>=0)&&(a[i][j-1]==0&&j-1>=0))
 typedef pair<int, int>	pii;
 typedef pair<ll, ll>	pl;
 typedef vector<int>		vi;
@@ -30,47 +35,37 @@ typedef vector<pii>		vpii;
 typedef vector<pl>		vpl;
 typedef vector<vi>		vvi;
 typedef vector<vl>		vvl;
-#define Max 1000
 
-int dp[Max + 1][Max + 1];
 
-void knapsack(int wt[],int val[],int w,int n) {
-    for(int i = 0;i < n+1;i++) {
-        for(int j =  0; j <= w ;j++) {
-            dp[i][j] = 0;
-            if(i == 0) dp[i][j] = 0;
-            if(j == 0) dp[i][j] = 1;
-
-        }
-    }
-    for(int i = 1;i < n+1;i++) {
-        for(int j =  1; j <= w ;j++) {
-
-            if(wt[i - 1] <= j) {
-                    ///1/0
-                if(dp[i-1][j - wt[i - 1]] || dp[i-1][j]) dp[i][j] = 1;
-                    ///unbounded
-                //if(dp[i][j - wt[i - 1]] || dp[i-1][j]) dp[i][j] = 1;
-            }
-            else if(wt[i - 1] > j) dp[i][j] = dp[i-1][j];
-
-        }
-    }
-    for(int i = 0;i < n+1;i++) {
-        for(int j =  0; j <= w ;j++) {
-            cout<<dp[i][j]<<" ";
-        }
-        cout<<"\n";
-    }
-}
 int main() {
-    int n,w;
-    n = 3;
-    w = 5;
-    int wt[] = {1,-2,3};
-    int val[] = {1,1,1,1};
-    knapsack(wt,val,w,n);
-    cout<<"\n------\n"<<dp[n][w]<<"\n------\n";
-    return 0;
+    int n,k;
+    cin>>n>>k;
+    int hour = k / 60;
+    int mi = k - hour*60;
+    int time_getting = (12 - hour - 8)*60;
+    if(mi != 0)
+    time_getting -= mi;
+    deb(hour) , deb2(mi,time_getting);
+    int low = 0;
+    int high = n;
+    int ans = 0;
+    while(low <= high) {
+        int mid = low + (high - low)/2;
+        int tim = 0;
+        for(int i = 1;i<=mid&&i*5<=time_getting;i++) {
+            tim = tim + i*5;
+        }
+        if(tim <= time_getting) {
+                cout<<"*";
+            ans = mid;
+            low = mid + 1;
+        }
+        else {
+            high = mid - 1;
+        }
+    deb(mid),deb2(low,high);
+    }
+    deb2(low,ans);
+
 }
 
