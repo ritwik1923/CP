@@ -11,8 +11,8 @@ using namespace std;
 #define pi(x)	printf("%d\n",x)
 #define pl(x)	printf("%lld\n",x)
 #define ps(s)	printf("%s\n",s)
-#define deb(x) cout << #x << "=" << x << " "
-#define deb2(x, y) cout << #x << "=" << x << "," << #y << "=" << y << "\n"
+#define deb(x) cout << #x << "=" << x << endl
+#define deb2(x, y) cout << #x << "=" << x << "," << #y << "=" << y << endl
 #define pb push_back
 #define mp make_pair
 #define F first
@@ -30,27 +30,40 @@ typedef vector<pii>		vpii;
 typedef vector<pl>		vpl;
 typedef vector<vi>		vvi;
 typedef vector<vl>		vvl;
-
-void NGL(ll a[],ll n) {
-vector <ll> v;
-stack <ll> s;
-rep(i,0,n) {
-    if(s.size()==0) v.push_back(-1);
-    else if(s.size()>0&&a[i]<s.top()) v.push_back(s.top()); 
-    else if(s.size()>0&&a[i]>=s.top()) {
-        while(s.size()>0&&a[i]>=s.top()) s.pop();
-        if(s.size()==0) v.push_back(-1);
-        else if(a[i]<s.top()) v.push_back(s.top()); 
+bool isdate(string d) {
+    //cout<<d<<" ";
+    bool r=false;
+    for(int i=0;i<d.size();i++) {
+        if(d[i]>='0'&&d[i]<='9'||d[i]=='-'||d[i]=='.')
+       {// cout<<d;
+           r=true;}
+        else {
+            r=false;
+return r;
+       }
     }
-    s.push(a[i]);
+    return r;
 }
-for(int i=0;i<n;i++) cout<<v[i]<<" "; 
-}
-
-int main() {
-    ll n;
-    cin>>n;
-    ll a[n];
+int dist_pair(int a[], int b[],int n, int m) 
+{ 
+    set<int> s;
+rep(i,0,n) {
+ rep(j,0,m)    {
+        
+     s.insert(a[i]+b[j]);
+ }
+} 
+return s.size();   
+} 
+  
+// Driver function 
+int main() 
+{ 
+    int n,m;
+    cin>>n>>m;
+    int a[n],b[m];
     rep(i,0,n) cin>>a[i];
-    NGL(a,n);
+    rep(i,0,m) cin>>b[i];
+   cout<<dist_pair(a,b,n,m); 
+    return 0; 
 }

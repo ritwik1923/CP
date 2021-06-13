@@ -30,27 +30,49 @@ typedef vector<pii>		vpii;
 typedef vector<pl>		vpl;
 typedef vector<vi>		vvi;
 typedef vector<vl>		vvl;
-
-void NGL(ll a[],ll n) {
-vector <ll> v;
-stack <ll> s;
-rep(i,0,n) {
-    if(s.size()==0) v.push_back(-1);
-    else if(s.size()>0&&a[i]<s.top()) v.push_back(s.top()); 
-    else if(s.size()>0&&a[i]>=s.top()) {
-        while(s.size()>0&&a[i]>=s.top()) s.pop();
-        if(s.size()==0) v.push_back(-1);
-        else if(a[i]<s.top()) v.push_back(s.top()); 
-    }
-    s.push(a[i]);
+const ll me = 100025;
+const ll mod = 0x3b9aca07;
+bool isbraketopen(char c) {
+    if(c=='['||c=='{'||c=='(')
+    return true;
+    return false;
 }
-for(int i=0;i<n;i++) cout<<v[i]<<" "; 
+bool isoperatand(char c) {
+    if((c>='a'&&c<='a'+25)||(c>='A'&&c<='A'+25))
+    return true;
+    return false;
+}
+bool isoperator(char c) {
+    if(c=='^'||c=='*'||c=='/'||c=='+'||c=='-')
+    return true;
+    return false;
 }
 
 int main() {
-    ll n;
-    cin>>n;
-    ll a[n];
-    rep(i,0,n) cin>>a[i];
-    NGL(a,n);
+	//code
+	int t;
+	cin>>t;
+	while(t--) {
+	    string s;
+	    cin>>s;
+	     stack <char> c;
+	    for(int i=0;i<s.size();i++) {
+	        if(isbraketopen(s[i])){
+	            c.push(s[i]);
+	        }
+	        else if(isoperatand(s[i])){
+	            cout<<s[i]<<" ";
+	        }
+	        else if(isoperator(s[i])){
+	            c.push(s[i]);
+	        }
+	        else  {
+	           
+	            while(((c.top()!='['&&s[i]==']')||(c.top()!='{'&&s[i]=='}')||(c.top()!='('&&s[i]==')')))
+	            cout<<c.top();
+	            c.pop();
+	        }
+	    }
+	}
+	return 0;
 }

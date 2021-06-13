@@ -11,8 +11,8 @@ using namespace std;
 #define pi(x)	printf("%d\n",x)
 #define pl(x)	printf("%lld\n",x)
 #define ps(s)	printf("%s\n",s)
-#define deb(x) cout << #x << "=" << x << " "
-#define deb2(x, y) cout << #x << "=" << x << "," << #y << "=" << y << "\n"
+#define deb(x) cout << #x << "=" << x << endl
+#define deb2(x, y) cout << #x << "=" << x << "," << #y << "=" << y << endl
 #define pb push_back
 #define mp make_pair
 #define F first
@@ -31,26 +31,40 @@ typedef vector<pl>		vpl;
 typedef vector<vi>		vvi;
 typedef vector<vl>		vvl;
 
-void NGL(ll a[],ll n) {
-vector <ll> v;
-stack <ll> s;
-rep(i,0,n) {
-    if(s.size()==0) v.push_back(-1);
-    else if(s.size()>0&&a[i]<s.top()) v.push_back(s.top()); 
-    else if(s.size()>0&&a[i]>=s.top()) {
-        while(s.size()>0&&a[i]>=s.top()) s.pop();
-        if(s.size()==0) v.push_back(-1);
-        else if(a[i]<s.top()) v.push_back(s.top()); 
-    }
-    s.push(a[i]);
+int code, p=-1,r,l=0,li=r,u=li,m=0, arr[1000],i=0;
+void array_input_recursion(int r)
+{
+    if(r>0)
+        {
+            cout<<"  >>>  ";
+            cin>>arr[i++];array_input_recursion(--r);
+        }
 }
-for(int i=0;i<n;i++) cout<<v[i]<<" "; 
+void binary_search_recursion(int l,int u,int arr[],int code)
+{
+   if(l<=u)   {
+        m=(u+l)/2;//m=l+(u-l)/2
+   if(arr[l]+arr[u]==code){
+        deb2(l,u);
+        return ;
+        }
+   else if(arr[l]+arr[u]>code)
+        binary_search_recursion(l,m-1,arr,code);
+  else
+        binary_search_recursion(m+1,u,arr,code);
+      }
+      else
+         cout<<-1;
+
+}
+int main()
+{
+ cin>>r;
+   array_input_recursion(r);
+    cin>>code;
+    binary_search_recursion(0,r-1,arr,code);
+   
+        cout<<"\n\t\t\tdata is present in pocket  "<<p+1;
+    return 0;
 }
 
-int main() {
-    ll n;
-    cin>>n;
-    ll a[n];
-    rep(i,0,n) cin>>a[i];
-    NGL(a,n);
-}

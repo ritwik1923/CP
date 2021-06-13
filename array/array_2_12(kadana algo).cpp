@@ -1,3 +1,4 @@
+/* An efficient program to print subarray with sum as given sum */
 #include<bits/stdc++.h>
 using namespace std;
 #define gc getchar_unlocked
@@ -11,8 +12,8 @@ using namespace std;
 #define pi(x)	printf("%d\n",x)
 #define pl(x)	printf("%lld\n",x)
 #define ps(s)	printf("%s\n",s)
-#define deb(x) cout << #x << "=" << x << " "
-#define deb2(x, y) cout << #x << "=" << x << "," << #y << "=" << y << "\n"
+#define deb(x) cout << #x << "=" << x << endl
+#define deb2(x, y) cout << #x << "=" << x << "," << #y << "=" << y << endl
 #define pb push_back
 #define mp make_pair
 #define F first
@@ -30,27 +31,37 @@ typedef vector<pii>		vpii;
 typedef vector<pl>		vpl;
 typedef vector<vi>		vvi;
 typedef vector<vl>		vvl;
+ 
+/* Returns true if the there is a subarray of arr[] with a sum equal to 'sum' 
+   otherwise returns false.  Also, prints the result */
+int subArraySum(ll arr[], ll n) 
+{ 
 
-void NGL(ll a[],ll n) {
-vector <ll> v;
-stack <ll> s;
-rep(i,0,n) {
-    if(s.size()==0) v.push_back(-1);
-    else if(s.size()>0&&a[i]<s.top()) v.push_back(s.top()); 
-    else if(s.size()>0&&a[i]>=s.top()) {
-        while(s.size()>0&&a[i]>=s.top()) s.pop();
-        if(s.size()==0) v.push_back(-1);
-        else if(a[i]<s.top()) v.push_back(s.top()); 
-    }
-    s.push(a[i]);
-}
-for(int i=0;i<n;i++) cout<<v[i]<<" "; 
-}
+    ll best = arr[0],i,ma=arr[0]; 
 
-int main() {
-    ll n;
+    for (i = 1; i < n; i++) 
+    { 
+      //to find max   
+     ma=max(ma+arr[i],arr[i]);
+     //to find ma is actually the max no. the array
+     best=max(ma,best);
+     cout<<best<<" ";
+
+    } 
+      return 0; 
+} 
+  
+// Driver program to test above function 
+int main() 
+{ 
+    ll t;
+    cin>>t;
+
+    while(t--){
+        ll n;
     cin>>n;
     ll a[n];
     rep(i,0,n) cin>>a[i];
-    NGL(a,n);
-}
+    subArraySum(a, n); 
+    }return 0; 
+} 

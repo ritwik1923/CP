@@ -30,27 +30,43 @@ typedef vector<pii>		vpii;
 typedef vector<pl>		vpl;
 typedef vector<vi>		vvi;
 typedef vector<vl>		vvl;
+const ll me = 100025;
+const ll mod = 0x3b9aca07;
+int ice_cream(ll a[],ll n){
+    ll c=0,c5=0,c10=0,c15=0;
+    map<ll,ll> m;
 
-void NGL(ll a[],ll n) {
-vector <ll> v;
-stack <ll> s;
-rep(i,0,n) {
-    if(s.size()==0) v.push_back(-1);
-    else if(s.size()>0&&a[i]<s.top()) v.push_back(s.top()); 
-    else if(s.size()>0&&a[i]>=s.top()) {
-        while(s.size()>0&&a[i]>=s.top()) s.pop();
-        if(s.size()==0) v.push_back(-1);
-        else if(a[i]<s.top()) v.push_back(s.top()); 
-    }
-    s.push(a[i]);
+        
+    rep(i,0,n) {
+               if(a[i]==5){ c+=5;m[5]++;}
+               else if(a[i]==10){
+                   if(m[5]==0) return 0;
+                   else if(m[5]>0){ m[5]--;m[10]++;}
+               }
+               else if(a[i]==15){ 
+                   if(m[5]<=1||m[10]==0) return 0;
+                   else if(m[5]>=2) {
+                       m[5]-=2;
+                   }
+                   else if(m[10]>0){ m[10]--;}
+                     m[15]++;
+               } for(auto i : m) cout<<i.F<<" "<<i.S<<" \n";
+               cout<<"\n---------------------\n";
+          }                  
+        
+       return 1;
 }
-for(int i=0;i<n;i++) cout<<v[i]<<" "; 
-}
-
 int main() {
-    ll n;
-    cin>>n;
-    ll a[n];
-    rep(i,0,n) cin>>a[i];
-    NGL(a,n);
+    ll t;
+    cin>>t;
+    while(t--) {
+       ll n;
+       cin>>n;
+       ll a[n];
+       rep(i,0,n) cin>>a[i];
+       if(ice_cream(a,n)) cout<<"YES";
+       else cout<<"NO";
+        
+        cout<<"\n";
+    }
 }
