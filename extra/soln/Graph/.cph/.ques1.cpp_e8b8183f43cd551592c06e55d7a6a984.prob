@@ -1,0 +1,1 @@
+{"group":"local","interactive":false,"local":true,"memoryLimit":1024,"name":"Local: ques1","srcPath":"f:\\Study Materials\\comp material\\question\\soln\\Graph\\ques1.cpp","tests":[{"id":1599015871677,"input":"3 3\n1 2 5\n2 3 6\n3 1 7","output":""}],"timeLimit":3000,"url":"f:\\Study Materials\\comp material\\question\\soln\\Graph\\ques1.cpp"}
