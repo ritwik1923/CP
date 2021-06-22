@@ -137,6 +137,8 @@ void factor(ll n,map<ll,ll> &fac) {
         if(n%f == 0) n/=f , fac[f]++;
         else ++i;
     }
+    if(n != 1)
+    fac[n]++;
 
 }
 
@@ -154,7 +156,7 @@ int main()
 {
     ll n;
     cin>>n;
-    // segmentedSieve(1, 1e6, 1);
+    // segmentedSieve(1, 1e5, 1);
     // cout << prime_nos[prime_nos.size() - 1];
     cout<<is_prime(n);
     // map<ll,ll> fac;
